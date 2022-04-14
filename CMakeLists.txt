@@ -7,9 +7,12 @@ cmake_minimum_required(VERSION 3.21)
 # This cannot have spaces (but PRODUCT_NAME can)
 set(PROJECT_NAME "Pamplejuce")
 
+# set path to vst2 sdk
+set(JUCE_GLOBAL_VST2_SDK_PATH ${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4)
+
 # Set the plugin formats you'll be building here.
 # Valid formats: AAX Unity VST AU AUv3 Standalone
-set(FORMATS AU VST3 AUv3)
+set(FORMATS AU VST3 AUv3 VST)
 
 # Reads in VERSION file and sticks in it CURRENT_VERSION variable
 file(READ VERSION CURRENT_VERSION)
