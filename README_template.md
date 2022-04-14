@@ -1,7 +1,6 @@
-![PAMPLEJUCE](pamplejuce.png)
-[![](https://github.com/sudara/pamplejuce/workflows/CMake/badge.svg)](https://github.com/sudara/pamplejuce/actions)
+# PAMPLEJUCE
 
-Pamplejuce is a ~~template~~ lifestyle for creating and building JUCE plugins in 2021.
+[Pamplejuce](https://github.com/sudara/pamplejuce) is a ~~template~~ lifestyle for creating and building JUCE plugins in 2021.
 
 Out of the box, it supports:
 
