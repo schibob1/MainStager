@@ -18,5 +18,8 @@ private:
     // access the processor object that created it.
     MainStagerAudioProcessor& processorRef;
 
+    // background image
+    std::unique_ptr<juce::Drawable> backgroundImage;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainStagerAudioProcessorEditor)
 };
