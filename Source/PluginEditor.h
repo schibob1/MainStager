@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PluginProcessor.h"
+#include "KnobClass.h"
 
 //==============================================================================
 class MainStagerAudioProcessorEditor  : public juce::AudioProcessorEditor
@@ -21,6 +22,10 @@ private:
 
     // background image
     std::unique_ptr<juce::Drawable> backgroundImage;
+
+    //knobs
+    juce::CustomLNF myCustomLNF;
+    juce::Slider mySlider;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainStagerAudioProcessorEditor)
 };
