@@ -50,5 +50,5 @@ void MainStagerAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     //mySlider.setBounds (getWidth()/ 2-100, getHeight() / 2 -100, 200, 200);
-    mySlider.setBounds (55, 257, 158, 158);
+    mySlider.setBoundsRelative (0.06875f, 0.5711f, 0.1975f, 0.3511f);
 }
