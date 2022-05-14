@@ -56,7 +56,7 @@ namespace juce
 
             // thumb
             auto thumbWidth = lineW * 2.0f;
-            float pointArcRadius = arcRadius*0.6;
+            auto pointArcRadius = arcRadius * 0.6f;
             Point<float> thumbPoint (bounds.getCentreX() + pointArcRadius * std::cos (toAngle - MathConstants<float>::halfPi),
                                     bounds.getCentreY() + pointArcRadius * std::sin (toAngle - MathConstants<float>::halfPi));
 
