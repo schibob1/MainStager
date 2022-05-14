@@ -24,8 +24,8 @@ private:
     std::unique_ptr<juce::Drawable> backgroundImage;
 
     //knobs
-    juce::CustomLNF myCustomLNF;
-    juce::Slider mySlider;
+    juce::CustomLNF lookAndFeel;
+    juce::Slider volumeSlider; // bzw. die Funktion, die der Slider hat
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainStagerAudioProcessorEditor)
 };
