@@ -71,8 +71,8 @@ set(SourceFiles
     Source/PluginProcessor.h
     Source/PluginEditor.cpp
     Source/PluginProcessor.cpp
-        Source/KnobClass.cpp
-        Source/KnobClass.h)
+    Source/MainstagerLNF.cpp
+    Source/MainstagerLNF.h)
 
 
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
@@ -156,7 +156,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Catch2) # find_package equivalent
 
 # Setup the test executable, again C++ 20 please
-add_executable(Tests ${TestFiles} Source/KnobClass.cpp Source/KnobClass.h)
+add_executable(Tests ${TestFiles})
 target_compile_features(Tests PRIVATE cxx_std_20)
 
 # Our test executable also wants to know about our plugin code...
