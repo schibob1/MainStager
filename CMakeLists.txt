@@ -67,14 +67,15 @@ target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_20)
 
 # Manually list all .h and .cpp files for the plugin (avoiding globs):
 set(SourceFiles
-    Source/PluginEditor.h
-    Source/PluginProcessor.h
-    Source/PluginEditor.cpp
-    Source/PluginProcessor.cpp
     Source/MainstagerLNF.cpp
-    Source/MainstagerLNF.h)
-
-
+    Source/MainstagerLNF.h
+    Source/ParameterIds.h
+    Source/editor/PluginEditor.h
+    Source/editor/PluginEditor.cpp
+    Source/editor/MainContainer.h
+    Source/editor/MainContainer.cpp
+    Source/processor/PluginProcessor.h
+    Source/processor/PluginProcessor.cpp)
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
 # No, we don't want our source buried in extra nested folders
@@ -123,6 +124,8 @@ target_compile_definitions("${PROJECT_NAME}"
     JUCE_WEB_BROWSER=0  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
     JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
     JUCE_VST3_CAN_REPLACE_VST2=0)
+
+target_include_directories("${PROJECT_NAME}" PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE

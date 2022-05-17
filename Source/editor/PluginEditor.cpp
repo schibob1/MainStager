@@ -1,5 +1,5 @@
 #include "PluginEditor.h"
-#include "PluginProcessor.h"
+#include <processor/PluginProcessor.h>
 
 #include <BinaryData.h>
 
@@ -7,6 +7,7 @@
 MainStagerAudioProcessorEditor::MainStagerAudioProcessorEditor (MainStagerAudioProcessor& p)
     : AudioProcessorEditor (&p),
       processorRef (p),
+      mainContainer (p.getApvts()),
       backgroundImage (juce::Drawable::createFromImageData (BinaryData::background_jpg, BinaryData::background_jpgSize))
 {
     juce::ignoreUnused (processorRef);
@@ -24,6 +25,8 @@ MainStagerAudioProcessorEditor::MainStagerAudioProcessorEditor (MainStagerAudioP
     volumeSlider.setColour (juce::Slider::ColourIds::thumbColourId, juce::Colours::turquoise);
 
     addAndMakeVisible (volumeSlider);
+
+    addAndMakeVisible (mainContainer);
 }
 
 MainStagerAudioProcessorEditor::~MainStagerAudioProcessorEditor()

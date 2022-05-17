@@ -1,4 +1,4 @@
-#include <PluginProcessor.h>
+#include <processor/PluginProcessor.h>
 #include <catch2/catch_all.hpp>
 
 TEST_CASE("one is equal to one", "[dummy]")
