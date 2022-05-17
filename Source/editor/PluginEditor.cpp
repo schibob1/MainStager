@@ -1,4 +1,3 @@
-#include "PluginProcessor.h"
 #include "PluginEditor.h"
 
 #include <BinaryData.h>
@@ -7,12 +6,15 @@
 MainStagerAudioProcessorEditor::MainStagerAudioProcessorEditor (MainStagerAudioProcessor& p)
     : AudioProcessorEditor (&p),
       processorRef (p),
+      mainContainer (p.getApvts()),
       backgroundImage (juce::Drawable::createFromImageData (BinaryData::background_jpg, BinaryData::background_jpgSize))
 {
     juce::ignoreUnused (processorRef);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 450);
+
+    addAndMakeVisible (mainContainer);
 }
 
 MainStagerAudioProcessorEditor::~MainStagerAudioProcessorEditor()

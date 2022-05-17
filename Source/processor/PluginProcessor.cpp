@@ -1,16 +1,18 @@
 #include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include <ParameterIds.h>
+#include <editor/PluginEditor.h>
 
 //==============================================================================
 MainStagerAudioProcessor::MainStagerAudioProcessor()
-     : AudioProcessor (BusesProperties()
+    : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+      apvts (*this, nullptr, "PARAMETERS", createParameterLayout())
 {
 }
 
@@ -183,4 +185,20 @@ void MainStagerAudioProcessor::setStateInformation (const void* data, int sizeIn
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new MainStagerAudioProcessor();
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+
+    layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::compressorAttack,
+        "compressor attack",
+        juce::NormalisableRange<float> (5.0f, 50.0f, 1.0f, 1.0f),
+        0.5f,
+        "ms",
+        juce::AudioProcessorParameter::genericParameter,
+        nullptr,
+        nullptr));
+
+    return layout;
 }
