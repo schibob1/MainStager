@@ -17,6 +17,7 @@ public:
     void paint (juce::Graphics& g) override;
 
 private:
+    juce::Slider volumeSlider;
     juce::Slider compressorAttackSlider;
     juce::AudioProcessorValueTreeState::SliderAttachment compressorAttackSliderAttachment;
 
