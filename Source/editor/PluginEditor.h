@@ -29,6 +29,7 @@ private:
     //knobs
     MainstagerLNF lookAndFeel;
     juce::Slider volumeSlider; // bzw. die Funktion, die der Slider hat
+    juce::Slider sizeKnob;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainStagerAudioProcessorEditor)
 };

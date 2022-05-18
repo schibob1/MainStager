@@ -18,6 +18,7 @@ public:
 
 private:
     juce::Slider volumeSlider;
+    juce::Slider sizeKnob;
     juce::Slider compressorAttackSlider;
     juce::AudioProcessorValueTreeState::SliderAttachment compressorAttackSliderAttachment;
 

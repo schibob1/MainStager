@@ -26,6 +26,17 @@ MainStagerAudioProcessorEditor::MainStagerAudioProcessorEditor (MainStagerAudioP
 
     addAndMakeVisible (volumeSlider);
 
+    juce::LookAndFeel::setDefaultLookAndFeel (&lookAndFeel);
+    sizeKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    sizeKnob.setRange (0.0f, 100.0f);
+    sizeKnob.setValue(25.0f);
+    sizeKnob.setTextBoxStyle(juce::Slider::NoTextBox, true, 100, 25);
+
+    sizeKnob.setColour (juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::turquoise);
+    sizeKnob.setColour (juce::Slider::ColourIds::thumbColourId, juce::Colours::turquoise);
+
+    addAndMakeVisible(sizeKnob);
+
     addAndMakeVisible (mainContainer);
 }
 
@@ -54,4 +65,5 @@ void MainStagerAudioProcessorEditor::resized()
     // subcomponents in your editor..
     //mySlider.setBounds (getWidth()/ 2-100, getHeight() / 2 -100, 200, 200);
     volumeSlider.setBoundsRelative (0.06875f, 0.5711f, 0.1975f, 0.3511f);
+    sizeKnob.setBoundsRelative(0.28f, 0.5711f, 0.1975f, 0.3511f);
 }
