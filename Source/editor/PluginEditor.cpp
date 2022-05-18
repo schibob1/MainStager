@@ -1,5 +1,6 @@
 #include "PluginEditor.h"
 #include <processor/PluginProcessor.h>
+#include "MainContainer.cpp"
 
 #include <BinaryData.h>
 
@@ -38,6 +39,12 @@ MainStagerAudioProcessorEditor::MainStagerAudioProcessorEditor (MainStagerAudioP
     addAndMakeVisible(sizeKnob);
 
     addAndMakeVisible (mainContainer);
+
+
+    addAndMakeVisible(size);
+    size.setText("Size", juce::dontSendNotification);
+    size.attachToComponent(&sizeKnob, false);
+
 }
 
 MainStagerAudioProcessorEditor::~MainStagerAudioProcessorEditor()

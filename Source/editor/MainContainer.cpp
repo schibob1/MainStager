@@ -9,11 +9,13 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts)
     : compressorAttackSliderAttachment (apvts, ParameterIds::compressorAttack, compressorAttackSlider)
 {
 
-    addAndMakeVisible (compressorAttackSlider);
+    //addAndMakeVisible(sizeKnob);
+    //addAndMakeVisible (compressorAttackSlider);
 }
 
 void MainContainer::resized()
 {
+    //sizeKnob.setBoundsRelative(0.28f, 0.5711f, 0.1975f, 0.3511f);
     // compressorAttackSlider.setBoundsRelative (...);
 }
 
