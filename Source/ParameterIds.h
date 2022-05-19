@@ -8,6 +8,8 @@
 
 namespace ParameterIds
 {
+    static const juce::String volume = "volume";
+
     /*  static const juce::String reverbSize = "reverbSize";
     static const juce::String reverbDamp = "reverbDamp";
     static const juce::String reverbWidth = "reverbWidth";

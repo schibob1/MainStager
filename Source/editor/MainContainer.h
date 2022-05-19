@@ -17,9 +17,11 @@ public:
     void paint (juce::Graphics& g) override;
 
 private:
-    juce::Slider volumeSlider;
+    juce::Slider volumeKnob; // bzw. die Funktion, die der Slider hat
     juce::Slider sizeKnob;
-    juce::Slider compressorAttackSlider;
-    juce::AudioProcessorValueTreeState::SliderAttachment compressorAttackSliderAttachment;
 
+    //label
+    juce::Label sizeLabel;
+
+    juce::AudioProcessorValueTreeState::SliderAttachment volumeKnobAttachment;
 };
