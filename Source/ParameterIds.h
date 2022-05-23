@@ -8,16 +8,15 @@
 
 namespace ParameterIds
 {
-    static const juce::String volume = "volume";
+    static const juce::String dryWet = "dryWet";
 
-    /*  static const juce::String reverbSize = "reverbSize";
-    static const juce::String reverbDamp = "reverbDamp";
-    static const juce::String reverbWidth = "reverbWidth";
-    static const juce::String reverbDW = "reverbDW";**/
+    static const juce::String size = "size";
+    static const juce::String colour = "colour";
+    static const juce::String width = "width";
 
-    static const juce::String compressorAttack = "compressorAttack";
-    /*  static const juce::String compressorRelease = "compressorRelease";
-    static const juce::String compressorThreshold = "compressorThreshold";
-    static const juce::String compressorRatio = "compressorRatio"; **/
+    //static const juce::String attack = "attack";
+    /*  static const juce::String release = "release";
+    static const juce::String threshold = "threshold";
+    static const juce::String ratio = "ratio"; **/
 
 }
