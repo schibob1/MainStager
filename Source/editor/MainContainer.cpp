@@ -17,52 +17,18 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     addAndMakeVisible (dryWetLabel);
 
     //size
-    configureKnobAndLabel (dryWetKnob, dryWetLabel, "Dry/Wet");
-    addAndMakeVisible (dryWetKnob);
-    addAndMakeVisible (dryWetLabel);
-
-    sizeKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    //sizeKnob.setRange (0.0f, 100.0f);
-    //sizeKnob.setValue (25.0f);
-    sizeKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 100, 25);
-
-    sizeKnob.setColour (juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::turquoise);
-    sizeKnob.setColour (juce::Slider::ColourIds::thumbColourId, juce::Colours::turquoise);
-
+    configureKnobAndLabel (sizeKnob, sizeLabel, "Size");
     addAndMakeVisible (sizeKnob);
-
-    sizeLabel.setText ("Size", juce::dontSendNotification);
-    sizeLabel.setJustificationType (juce::Justification::centred);
     addAndMakeVisible (sizeLabel);
 
     //colour
-    colourKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    //colourKnob.setRange (0.0f, 100.0f);
-    //colourKnob.setValue (25.0f);
-    colourKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 100, 25);
-
-    colourKnob.setColour (juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::turquoise);
-    colourKnob.setColour (juce::Slider::ColourIds::thumbColourId, juce::Colours::turquoise);
-
+    configureKnobAndLabel (colourKnob, colourLabel, "Colour");
     addAndMakeVisible (colourKnob);
-
-    colourLabel.setText ("Colour", juce::dontSendNotification);
-    colourLabel.setJustificationType (juce::Justification::centred);
     addAndMakeVisible (colourLabel);
 
     //width
-    widthKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    //widthKnob.setRange (0.0f, 100.0f);
-    //widthKnob.setValue (25.0f);
-    widthKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 100, 25);
-
-    widthKnob.setColour (juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::turquoise);
-    widthKnob.setColour (juce::Slider::ColourIds::thumbColourId, juce::Colours::turquoise);
-
+    configureKnobAndLabel (widthKnob, widthLabel, "Width");
     addAndMakeVisible (widthKnob);
-
-    widthLabel.setText ("Width", juce::dontSendNotification);
-    widthLabel.setJustificationType (juce::Justification::centred);
     addAndMakeVisible (widthLabel);
 }
 

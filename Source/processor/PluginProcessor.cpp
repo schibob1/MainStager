@@ -139,24 +139,9 @@ void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, /
     auto totalNumInputChannels = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    //params MainStager
-    //params.roomSize = *apvts.getRawParameterValue (ParameterIds::size); //deref. mir d. Pointer
-    //params.damping = *apvts.getRawParameterValue (ParameterIds::colour);
-    //params.width = *apvts.getRawParameterValue (ParameterIds::width);
-
-    // params.wetLevel = 0.01f * *apvts.getRawParameterValue (ParameterIds::dryWet);
-    // params.dryLevel = 1.0f - params.wetLevel;
-
-    //params.wetLevel = apvts.getParameter(ParameterIds::dryWet)->convertTo0to1(*apvts.getRawParameterValue(ParameterIds::dryWet));
     params.wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue(); //normalisierter Wert
 
     reverb.setParameters (params);
@@ -219,6 +204,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
+    //dry/wet
     layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::dryWet,
         "Dry/Wet",
         juce::NormalisableRange<float> (0.0f, 100.0f, 1.0f, 1.0f),
@@ -227,7 +213,56 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
         juce::AudioProcessorParameter::genericParameter,
         nullptr,
         nullptr));
-    // hier weitere adden
+
+    //size
+    layout.add (std::make_unique<juce::AudioParameterFloat> (
+        ParameterIds::size,
+        "Size",
+        juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f, 1.0f),
+        0.8f,
+        juce::String(),
+        juce::AudioProcessorParameter::genericParameter,
+        [] (float value, int) {
+            if (value * 100 < 10.0f)
+                return juce::String (value * 100, 2);
+            else if (value * 100 < 100.0f)
+                return juce::String (value * 100, 1);
+            else
+                return juce::String (value * 100, 0); },
+        nullptr));
+    //colour
+    layout.add (std::make_unique<juce::AudioParameterFloat> (
+        ParameterIds::colour,
+        "Colour",
+        juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f, 1.0f),
+        0.5f,
+        juce::String(),
+        juce::AudioProcessorParameter::genericParameter,
+        [] (float value, int) {
+            if (value * 100 < 10.0f)
+                return juce::String (value * 100, 2);
+            else if (value * 100 < 100.0f)
+                return juce::String (value * 100, 1);
+            else
+                return juce::String (value * 100, 0); },
+        nullptr));
+
+    //width
+    layout.add (std::make_unique<juce::AudioParameterFloat> (
+        ParameterIds::width,
+        "Width",
+        juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f, 1.0f),
+        0.5f,
+        juce::String(),
+        juce::AudioProcessorParameter::genericParameter,
+        [] (float value, int) {
+            if (value * 100 < 10.0f)
+                return juce::String (value * 100, 2);
+            else if (value * 100 < 100.0f)
+                return juce::String (value * 100, 1);
+            else
+                return juce::String (value * 100, 0); },
+        nullptr));
 
     return layout;
 }

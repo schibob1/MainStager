@@ -21,14 +21,14 @@ private:
 
     juce::Slider dryWetKnob; // bzw. die Funktion, die der Slider hat
     juce::Slider sizeKnob;
-    juce::Slider widthKnob;
     juce::Slider colourKnob;
+    juce::Slider widthKnob;
 
     //label
     juce::Label dryWetLabel;
     juce::Label sizeLabel;
-    juce::Label widthLabel;
     juce::Label colourLabel;
+    juce::Label widthLabel;
 
     juce::AudioProcessorValueTreeState::SliderAttachment dryWetKnobAttachment;
     juce::AudioProcessorValueTreeState::SliderAttachment sizeKnobAttachment;
