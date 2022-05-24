@@ -91,6 +91,16 @@ void MainStagerAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     juce::ignoreUnused (sampleRate, samplesPerBlock);
+
+    //juce::dsp::ProcessSpec object to hold the information necessary to initialize the Reverb object you have created
+    juce::dsp::ProcessSpec spec;
+
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = 1; //müsste das auch alles in ParameterIds.h oder nicht, weils backend ist?
+
+    leftReverb.prepare (spec);
+    rightReverb.prepare (spec);
 }
 
 void MainStagerAudioProcessor::releaseResources()
@@ -138,6 +148,17 @@ void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+
+    //params
+    /* params.roomSize   = *apvts.getRawParameterValue ("size");
+    params.damping    = *apvts.getRawParameterValue ("damp");
+    params.width      = *apvts.getRawParameterValue ("width");*/
+
+    params.wetLevel = *apvts.getRawParameterValue (ParameterIds::dryWet);
+    params.dryLevel = 1.0f - *apvts.getRawParameterValue (ParameterIds::dryWet);
+
+    leftReverb.setParameters (params);
+    rightReverb.setParameters (params);
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
@@ -195,7 +216,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
         "dryWet",
         juce::NormalisableRange<float> (5.0f, 50.0f, 1.0f, 1.0f),
         0.5f,
-        "ms",
+        "%",
         juce::AudioProcessorParameter::genericParameter,
         nullptr,
         nullptr));

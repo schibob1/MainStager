@@ -9,7 +9,6 @@
 namespace ParameterIds
 {
     static const juce::String dryWet = "dryWet";
-
     static const juce::String size = "size";
     static const juce::String colour = "colour";
     static const juce::String width = "width";
