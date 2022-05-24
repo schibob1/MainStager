@@ -143,6 +143,9 @@ void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, /
         buffer.clear (i, 0, buffer.getNumSamples());
 
     params.wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue(); //normalisierter Wert
+    params.roomSize = apvts.getParameter (ParameterIds::size)->getValue(); //normalisierter Wert
+    params.damping = apvts.getParameter (ParameterIds::colour)->getValue();
+    params.width = apvts.getParameter (ParameterIds::width)->getValue();
 
     reverb.setParameters (params);
 
