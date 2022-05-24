@@ -17,16 +17,21 @@ public:
     void paint (juce::Graphics& g) override;
 
 private:
-    juce::Slider sizeKnob;
+    void configureKnobAndLabel (juce::Slider& knob, juce::Label& label, juce::String labelText);
+
     juce::Slider dryWetKnob; // bzw. die Funktion, die der Slider hat
+    juce::Slider sizeKnob;
     juce::Slider widthKnob;
     juce::Slider colourKnob;
 
     //label
-    juce::Label sizeLabel;
     juce::Label dryWetLabel;
+    juce::Label sizeLabel;
     juce::Label widthLabel;
     juce::Label colourLabel;
 
-    juce::AudioProcessorValueTreeState::SliderAttachment volumeKnobAttachment;
+    juce::AudioProcessorValueTreeState::SliderAttachment dryWetKnobAttachment;
+    juce::AudioProcessorValueTreeState::SliderAttachment sizeKnobAttachment;
+    juce::AudioProcessorValueTreeState::SliderAttachment widthKnobAttachment;
+    juce::AudioProcessorValueTreeState::SliderAttachment colourKnobAttachment;
 };

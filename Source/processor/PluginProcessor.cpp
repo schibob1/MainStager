@@ -97,10 +97,9 @@ void MainStagerAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = samplesPerBlock;
-    spec.numChannels = 1; //müsste das auch alles in ParameterIds.h oder nicht, weils backend ist?
+    spec.numChannels = getMainBusNumInputChannels();
 
-    leftReverb.prepare (spec);
-    rightReverb.prepare (spec);
+    reverb.prepare (spec);
 }
 
 void MainStagerAudioProcessor::releaseResources()
@@ -131,7 +130,7 @@ bool MainStagerAudioProcessor::isBusesLayoutSupported (const BusesLayout& layout
 #endif
 }
 
-void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
+void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, //Ref. auf Audiobuffer
     juce::MidiBuffer& midiMessages)
 {
     juce::ignoreUnused (midiMessages);
@@ -149,16 +148,24 @@ void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    //params
-    /* params.roomSize   = *apvts.getRawParameterValue ("size");
-    params.damping    = *apvts.getRawParameterValue ("damp");
-    params.width      = *apvts.getRawParameterValue ("width");*/
+    //params MainStager
+    //params.roomSize = *apvts.getRawParameterValue (ParameterIds::size); //deref. mir d. Pointer
+    //params.damping = *apvts.getRawParameterValue (ParameterIds::colour);
+    //params.width = *apvts.getRawParameterValue (ParameterIds::width);
 
-    params.wetLevel = *apvts.getRawParameterValue (ParameterIds::dryWet);
-    params.dryLevel = 1.0f - *apvts.getRawParameterValue (ParameterIds::dryWet);
+    // params.wetLevel = 0.01f * *apvts.getRawParameterValue (ParameterIds::dryWet);
+    // params.dryLevel = 1.0f - params.wetLevel;
 
-    leftReverb.setParameters (params);
-    rightReverb.setParameters (params);
+    //params.wetLevel = apvts.getParameter(ParameterIds::dryWet)->convertTo0to1(*apvts.getRawParameterValue(ParameterIds::dryWet));
+    params.wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue(); //normalisierter Wert
+
+    reverb.setParameters (params);
+
+    juce::dsp::AudioBlock<float> block (buffer); //Ref. auf Buffer, wrappt bel. Arten v. Speicher
+
+    juce::dsp::ProcessContextReplacing<float> context (block);
+
+    reverb.process (context);
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
@@ -213,13 +220,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
     layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::dryWet,
-        "dryWet",
-        juce::NormalisableRange<float> (5.0f, 50.0f, 1.0f, 1.0f),
-        0.5f,
+        "Dry/Wet",
+        juce::NormalisableRange<float> (0.0f, 100.0f, 1.0f, 1.0f),
+        80.0f,
         "%",
         juce::AudioProcessorParameter::genericParameter,
         nullptr,
         nullptr));
+    // hier weitere adden
 
     return layout;
 }

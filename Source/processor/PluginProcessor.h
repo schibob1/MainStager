@@ -1,9 +1,8 @@
 #pragma once
 
 #include "ParameterIds.h"
-#include "juce_dsp/juce_dsp.h"
-#include "juce_dsp/widgets/juce_Reverb.h"
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_dsp/juce_dsp.h>
 
 class MainStagerAudioProcessor : public juce::AudioProcessor
 {
@@ -44,6 +43,6 @@ private:
 
     juce::AudioProcessorValueTreeState apvts;
     juce::dsp::Reverb::Parameters params;
-    juce::dsp::Reverb leftReverb, rightReverb;
+    juce::dsp::Reverb reverb;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainStagerAudioProcessor)
 };
