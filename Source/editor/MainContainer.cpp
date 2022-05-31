@@ -35,10 +35,10 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
 void MainContainer::resized()
 {
     //knobs postition
-    dryWetKnob.setBoundsRelative (0.06875f, 0.5711f, 0.1975f, 0.3511f);
-    sizeKnob.setBoundsRelative (0.28f, 0.5711f, 0.1975f, 0.3511f);
-    colourKnob.setBoundsRelative (0.5075f, 0.5711f, 0.1975f, 0.3511f);
-    widthKnob.setBoundsRelative (0.735f, 0.5711f, 0.1975f, 0.3511f);
+    dryWetKnob.setBoundsRelative (0.0425f, 0.045f, 0.1625f, 0.3625f);
+    sizeKnob.setBoundsRelative (0.17f, 0.22f, 0.16f, 0.36f);
+    colourKnob.setBoundsRelative (0.045f, 0.42f, 0.16f, 0.36f);
+    widthKnob.setBoundsRelative (0.16f, 0.625f, 0.16f, 0.36f);
 
     //labels
     dryWetLabel.setBounds (dryWetKnob.getBounds().withY (dryWetKnob.getBottom()).withHeight (proportionOfHeight (0.05f)));
