@@ -14,37 +14,37 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     //dryWet
     configureKnobAndLabel (dryWetKnob, dryWetLabel, "Dry/Wet");
     addAndMakeVisible (dryWetKnob);
-    addAndMakeVisible (dryWetLabel);
+    //addAndMakeVisible (dryWetLabel);
 
     //size
     configureKnobAndLabel (sizeKnob, sizeLabel, "Size");
     addAndMakeVisible (sizeKnob);
-    addAndMakeVisible (sizeLabel);
+    //addAndMakeVisible (sizeLabel);
 
     //colour
     configureKnobAndLabel (colourKnob, colourLabel, "Colour");
     addAndMakeVisible (colourKnob);
-    addAndMakeVisible (colourLabel);
+    //addAndMakeVisible (colourLabel);
 
     //width
     configureKnobAndLabel (widthKnob, widthLabel, "Width");
     addAndMakeVisible (widthKnob);
-    addAndMakeVisible (widthLabel);
+    //addAndMakeVisible (widthLabel);
 }
 
 void MainContainer::resized()
 {
     //knobs postition
-    dryWetKnob.setBoundsRelative (0.0425f, 0.045f, 0.1625f, 0.3625f);
-    sizeKnob.setBoundsRelative (0.17f, 0.22f, 0.16f, 0.36f);
-    colourKnob.setBoundsRelative (0.045f, 0.42f, 0.16f, 0.36f);
-    widthKnob.setBoundsRelative (0.16f, 0.625f, 0.16f, 0.36f);
+    dryWetKnob.setBoundsRelative (0.046f, 0.043275f, 0.159f, 0.359f);
+    sizeKnob.setBoundsRelative (0.1725f, 0.21125f, 0.159f, 0.359f);
+    colourKnob.setBoundsRelative (0.04675f, 0.4285f, 0.159f, 0.359f);
+    widthKnob.setBoundsRelative (0.1725f, 0.595f, 0.159f, 0.359f);
 
     //labels
-    dryWetLabel.setBounds (dryWetKnob.getBounds().withY (dryWetKnob.getBottom()).withHeight (proportionOfHeight (0.05f)));
-    sizeLabel.setBounds (sizeKnob.getBounds().withY (sizeKnob.getBottom()).withHeight (proportionOfHeight (0.05f)));
-    colourLabel.setBounds (colourKnob.getBounds().withY (colourKnob.getBottom()).withHeight (proportionOfHeight (0.05f)));
-    widthLabel.setBounds (widthKnob.getBounds().withY (widthKnob.getBottom()).withHeight (proportionOfHeight (0.05f)));
+    dryWetLabel.setBounds (dryWetKnob.getBounds().withY (dryWetKnob.getBottom()).withHeight (proportionOfHeight (0.01f)));
+    sizeLabel.setBounds (sizeKnob.getBounds().withY (sizeKnob.getBottom()).withHeight (proportionOfHeight (0.02f)));
+    colourLabel.setBounds (colourKnob.getBounds().withY (colourKnob.getBottom()).withHeight (proportionOfHeight (0.03f)));
+    widthLabel.setBounds (widthKnob.getBounds().withY (widthKnob.getBottom()).withHeight (proportionOfHeight (0.04f)));
 }
 
 void MainContainer::paint (juce::Graphics& g)
