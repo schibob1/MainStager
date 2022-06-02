@@ -67,11 +67,11 @@ target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_20)
 
 # Manually list all .h and .cpp files for the plugin (avoiding globs):
 set(SourceFiles
-    Source/MainstagerLNF.cpp
-    Source/MainstagerLNF.h
     Source/ParameterIds.h
     Source/editor/PluginEditor.h
     Source/editor/PluginEditor.cpp
+    Source/editor/MainstagerLNF.h
+    Source/editor/MainstagerLNF.cpp
     Source/editor/MainContainer.h
     Source/editor/MainContainer.cpp
     Source/processor/PluginProcessor.h
