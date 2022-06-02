@@ -32,6 +32,9 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     addAndMakeVisible (widthLabel);
 
     dryWetLabel.toBehind (&dryWetKnob);
+    sizeLabel.toBehind (&sizeKnob);
+    colourLabel.toBehind (&colourKnob);
+    widthLabel.toBehind (&widthKnob);
 }
 
 void MainContainer::resized()
@@ -46,11 +49,12 @@ void MainContainer::resized()
 
     //labels
     auto labelOffset = -proportionOfHeight (0.01f);
+    auto labelHeight = proportionOfHeight (0.03f);
 
-    dryWetLabel.setBounds (dryWetKnob.getBounds().withY (dryWetKnob.getBottom() + labelOffset).withHeight (proportionOfHeight (0.03f)));
-    sizeLabel.setBounds (sizeKnob.getBounds().withY (sizeKnob.getBottom() + labelOffset).withHeight (proportionOfHeight (0.03f)));
-    colourLabel.setBounds (colourKnob.getBounds().withY (colourKnob.getBottom() + labelOffset).withHeight (proportionOfHeight (0.03f)));
-    widthLabel.setBounds (widthKnob.getBounds().withY (widthKnob.getBottom() + labelOffset).withHeight (proportionOfHeight (0.03f)));
+    dryWetLabel.setBounds (dryWetKnob.getBounds().withY (dryWetKnob.getBottom() + labelOffset).withHeight (labelHeight));
+    sizeLabel.setBounds (sizeKnob.getBounds().withY (sizeKnob.getBottom() + labelOffset).withHeight (labelHeight));
+    colourLabel.setBounds (colourKnob.getBounds().withY (colourKnob.getBottom() + labelOffset).withHeight (labelHeight));
+    widthLabel.setBounds (widthKnob.getBounds().withY (widthKnob.getBottom() + labelOffset).withHeight (labelHeight));
 }
 
 void MainContainer::paint (juce::Graphics& g)
