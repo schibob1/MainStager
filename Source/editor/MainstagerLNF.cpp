@@ -10,7 +10,7 @@ void MainstagerLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width
     auto outline = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     auto fill    = slider.findColour (juce::Slider::rotarySliderFillColourId);
 
-    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced (10);
+    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced (10.0f);
 
     auto radius = juce::jmin (bounds.getWidth(), bounds.getHeight()) / 2.0f;
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
