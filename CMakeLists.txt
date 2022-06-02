@@ -75,7 +75,9 @@ set(SourceFiles
     Source/editor/MainContainer.h
     Source/editor/MainContainer.cpp
     Source/processor/PluginProcessor.h
-    Source/processor/PluginProcessor.cpp)
+    Source/processor/PluginProcessor.cpp
+    Source/processor/MainstagerCompressor.h
+    Source/processor/MainstagerCompressor.cpp)
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
 # No, we don't want our source buried in extra nested folders

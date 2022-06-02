@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ParameterIds.h"
+#include "MainstagerCompressor.h"
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
@@ -44,5 +45,7 @@ private:
     juce::AudioProcessorValueTreeState apvts;
     juce::dsp::Reverb::Parameters params;
     juce::dsp::Reverb reverb;
+    MainstagerCompressor compressor;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainStagerAudioProcessor)
 };
