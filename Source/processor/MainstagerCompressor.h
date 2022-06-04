@@ -42,31 +42,39 @@ public:
     void process (const ProcessContext& context) noexcept
     {
         const auto& inputBlock = context.getInputBlock();
-        auto& outputBlock      = context.getOutputBlock();
-        const auto numChannels = outputBlock.getNumChannels();
-        const auto numSamples  = outputBlock.getNumSamples();
+        auto& outputBlock = context.getOutputBlock();
+        const auto numSamples = inputBlock.getNumSamples();
+        const auto numTotalChannels = inputBlock.getNumChannels();
 
-        jassert (inputBlock.getNumChannels() == numChannels);
-        jassert (inputBlock.getNumSamples()  == numSamples);
+        jassert (numTotalChannels > 1 && numTotalChannels % 2 == 0);
+
+        const auto busChannels = numTotalChannels / 2;
+
+        jassert (outputBlock.getNumChannels() == numTotalChannels);
+        jassert (outputBlock.getNumSamples() == numSamples);
 
         if (context.isBypassed)
         {
             outputBlock.copyFrom (inputBlock);
             return;
         }
+        //Input Block in 2 Bus-Ansicht zerlegt
+        const auto mainInputBlock = inputBlock.getSubsetChannelBlock (0, busChannels);
+        const auto sideInputBlock = inputBlock.getSubsetChannelBlock (busChannels, busChannels);
 
-        for (size_t channel = 0; channel < numChannels; ++channel)
+        for (size_t channel = 0; channel < busChannels; ++channel)
         {
-            auto* inputSamples  = inputBlock .getChannelPointer (channel);
+            auto* mainInputSamples = mainInputBlock.getChannelPointer (channel);
+            auto* sideInputSamples = sideInputBlock.getChannelPointer (channel);
             auto* outputSamples = outputBlock.getChannelPointer (channel);
 
             for (size_t i = 0; i < numSamples; ++i)
-                outputSamples[i] = processSample ((int) channel, inputSamples[i]);
+                outputSamples[i] = processSample ((int) channel, mainInputSamples[i], sideInputSamples[i]);
         }
     }
 
     /** Performs the processing operation on a single sample at a time. */
-    float processSample (int channel, float inputValue);
+    float processSample (int channel, float mainInputValue, float sideInputValue);
 
 private:
     //==============================================================================

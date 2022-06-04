@@ -14,8 +14,8 @@ namespace ParameterIds
     static const juce::String width = "width";
 
     //static const juce::String attack = "attack";
-    /*  static const juce::String release = "release";
+    static const juce::String release = "release";
     static const juce::String threshold = "threshold";
-    static const juce::String ratio = "ratio"; **/
+    static const juce::String ratio = "ratio";
 
 }

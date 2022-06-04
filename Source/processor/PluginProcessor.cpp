@@ -1,3 +1,4 @@
+
 #include "PluginProcessor.h"
 #include <ParameterIds.h>
 #include <editor/PluginEditor.h>
@@ -96,10 +97,11 @@ void MainStagerAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     juce::dsp::ProcessSpec spec;
 
     spec.sampleRate = sampleRate;
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.numChannels = getMainBusNumInputChannels();
-
+    spec.maximumBlockSize = juce::uint32 (samplesPerBlock);
+    spec.numChannels = juce::uint32 (getMainBusNumInputChannels());
+    compressorBuffer.setSize (getMainBusNumInputChannels() * 2, samplesPerBlock); //worst case: wenn buffer groesser wird -> neue Werte aktualisieren
     reverb.prepare (spec);
+    compressor.prepare (spec);
 }
 
 void MainStagerAudioProcessor::releaseResources()
@@ -142,18 +144,35 @@ void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, /
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    params.wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue(); //normalisierter Wert
+    // params.wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue(); //normalisierter Wert --> am Ende oder ganz weg
+    params.wetLevel = 1.0f;
     params.roomSize = apvts.getParameter (ParameterIds::size)->getValue(); //normalisierter Wert
     params.damping = apvts.getParameter (ParameterIds::colour)->getValue();
     params.width = apvts.getParameter (ParameterIds::width)->getValue();
 
     reverb.setParameters (params);
 
+    // compressor.setThreshold (*apvts.getRawParameterValue (ParameterIds::threshold)); // nicht-normalisierter Wert
+    compressor.setThreshold (-18.0f); //fixieren
+    compressor.setAttack (1.0f); //fixieren
+    compressor.setRelease (200.0f); //flexibel
+    compressor.setRatio (20.0f); //flexibel
+
+    auto wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue();
+
     juce::dsp::AudioBlock<float> block (buffer); //Ref. auf Buffer, wrappt bel. Arten v. Speicher
+    auto numChannels = size_t (buffer.getNumChannels());
+    auto compressorBlock = juce::dsp::AudioBlock<float> (compressorBuffer).getSubBlock (0, size_t (buffer.getNumSamples())); //auto = dass es keine Dopplung gibt
+    auto mainBlock = compressorBlock.getSubsetChannelBlock (0, numChannels);
+    auto sideBlock = compressorBlock.getSubsetChannelBlock (numChannels, numChannels);
+    sideBlock.copyFrom (block); //copies block
 
-    juce::dsp::ProcessContextReplacing<float> context (block);
+    juce::dsp::ProcessContextNonReplacing<float> reverbContext (block, mainBlock);
+    juce::dsp::ProcessContextReplacing<float> compressorContext (compressorBlock); //mainInputBlock aka Channel 0+1 wird ueberschrieben, compressorInputBlock aka 2+3 v. compressorInputBlock bleibt erhalten, da SC
 
-    reverb.process (context);
+    reverb.process (reverbContext);
+    compressor.process (compressorContext);
+    block.addProductOf (mainBlock, wetLevel);
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
@@ -211,7 +230,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
     layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::dryWet,
         "Dry/Wet",
         juce::NormalisableRange<float> (0.0f, 100.0f, 1.0f, 1.0f),
-        80.0f,
+        100.0f,
         "%",
         juce::AudioProcessorParameter::genericParameter,
         nullptr,
@@ -226,12 +245,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
         juce::String(),
         juce::AudioProcessorParameter::genericParameter,
         [] (float value, int) {
-            if (value * 100 < 10.0f)
-                return juce::String (value * 100, 2);
-            else if (value * 100 < 100.0f)
-                return juce::String (value * 100, 1);
+            if (value * 100.0f < 10.0f)
+                return juce::String (value * 100.0f, 2);
+            else if (value * 100.0f < 100.0f)
+                return juce::String (value * 100.0f, 1);
             else
-                return juce::String (value * 100, 0); },
+                return juce::String (value * 100.0f, 0); },
         nullptr));
     //colour
     layout.add (std::make_unique<juce::AudioParameterFloat> (
@@ -242,12 +261,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
         juce::String(),
         juce::AudioProcessorParameter::genericParameter,
         [] (float value, int) {
-            if (value * 100 < 10.0f)
-                return juce::String (value * 100, 2);
-            else if (value * 100 < 100.0f)
-                return juce::String (value * 100, 1);
+            if (value * 100.0f < 10.0f)
+                return juce::String (value * 100.0f, 2);
+            else if (value * 100.0f < 100.0f)
+                return juce::String (value * 100.0f, 1);
             else
-                return juce::String (value * 100, 0); },
+                return juce::String (value * 100.0f, 0); },
         nullptr));
 
     //width
@@ -259,12 +278,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
         juce::String(),
         juce::AudioProcessorParameter::genericParameter,
         [] (float value, int) {
-            if (value * 100 < 10.0f)
-                return juce::String (value * 100, 2);
-            else if (value * 100 < 100.0f)
-                return juce::String (value * 100, 1);
+            if (value * 100.0f < 10.0f)
+                return juce::String (value * 100.0f, 2);
+            else if (value * 100.0f < 100.0f)
+                return juce::String (value * 100.0f, 1);
             else
-                return juce::String (value * 100, 0); },
+                return juce::String (value * 100.0f, 0); },
         nullptr));
 
     return layout;

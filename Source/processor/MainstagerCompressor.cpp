@@ -53,24 +53,24 @@ void MainstagerCompressor::reset()
 }
 
 //==============================================================================
-float MainstagerCompressor::processSample (int channel, float inputValue)
+float MainstagerCompressor::processSample (int channel, float mainInputValue, float sideInputValue)
 {
     // Ballistics filter with peak rectifier
-    auto env = envelopeFilter.processSample (channel, inputValue);
+    auto env = envelopeFilter.processSample (channel, sideInputValue);
 
     // VCA
     auto gain = (env < threshold) ? 1.0f
                                   : std::pow (env * thresholdInverse, ratioInverse - 1.0f);
 
     // Output
-    return gain * inputValue;
+    return gain * mainInputValue;
 }
 
 void MainstagerCompressor::update()
 {
     threshold = juce::Decibels::decibelsToGain (thresholddB, -200.0f);
     thresholdInverse = 1.0f / threshold;
-    ratioInverse     = 1.0f / ratio;
+    ratioInverse = 1.0f / ratio;
 
     envelopeFilter.setAttackTime (attackTime);
     envelopeFilter.setReleaseTime (releaseTime);
