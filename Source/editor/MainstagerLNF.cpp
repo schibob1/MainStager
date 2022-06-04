@@ -10,11 +10,11 @@ void MainstagerLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width
     auto outline = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     auto fill    = slider.findColour (juce::Slider::rotarySliderFillColourId);
 
-    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced (10);
+    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced (10.0f);
 
     auto radius = juce::jmin (bounds.getWidth(), bounds.getHeight()) / 2.0f;
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    auto lineW = juce::jmin (8.0f, radius * 0.5f);
+    auto lineW = juce::jmin (7.0f, radius * 0.5f);
     auto arcRadius = radius - lineW * 0.5f;
 
     //knob background path
@@ -50,7 +50,7 @@ void MainstagerLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width
 
     // thumb
     auto thumbWidth = lineW * 2.0f;
-    auto pointArcRadius = arcRadius * 0.6f;
+    auto pointArcRadius = arcRadius * 0.4f;
     juce::Point<float> thumbPoint (bounds.getCentreX() + pointArcRadius * std::cos (toAngle - juce::MathConstants<float>::halfPi),
         bounds.getCentreY() + pointArcRadius * std::sin (toAngle - juce::MathConstants<float>::halfPi));
 
