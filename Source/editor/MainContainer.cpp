@@ -9,7 +9,10 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     : dryWetKnobAttachment (apvts, ParameterIds::dryWet, dryWetKnob),
       sizeKnobAttachment (apvts, ParameterIds::size, sizeKnob),
       widthKnobAttachment (apvts, ParameterIds::width, widthKnob),
-      colourKnobAttachment (apvts, ParameterIds::colour, colourKnob)
+      colourKnobAttachment (apvts, ParameterIds::colour, colourKnob),
+      thresholdKnobAttachment (apvts, ParameterIds::threshold, thresholdKnob),
+      speedKnobAttachment (apvts, ParameterIds::speed, speedKnob)
+
 {
     //dryWet
     configureKnobAndLabel (dryWetKnob, dryWetLabel, "Dry/Wet");
@@ -27,10 +30,23 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     addAndMakeVisible (colourLabel);
 
     //width
+    /*
     configureKnobAndLabel (widthKnob, widthLabel, "Width");
     addAndMakeVisible (widthKnob);
     addAndMakeVisible (widthLabel);
+     */
 
+    //Speed aka Release
+    configureKnobAndLabel (speedKnob, speedLabel, "Speed");
+    addAndMakeVisible (speedKnob);
+    addAndMakeVisible (speedLabel);
+
+    //Threshold
+    configureKnobAndLabel (thresholdKnob, thresholdLabel, "Ducking/Intensity");
+    addAndMakeVisible (thresholdKnob);
+    addAndMakeVisible (thresholdLabel);
+
+    //labels placement
     dryWetLabel.toBehind (&dryWetKnob);
     sizeLabel.toBehind (&sizeKnob);
     colourLabel.toBehind (&colourKnob);
@@ -47,7 +63,9 @@ void MainContainer::resized()
     dryWetKnob.setBounds (proportionOfWidth (0.046f), proportionOfHeight (0.0825f /* 0.043275f 0.09f 0.08f*/), knobSize, knobSize);
     sizeKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.25f /*0.21125f 0.26f 0.2511f*/), knobSize, knobSize);
     colourKnob.setBounds (proportionOfWidth (0.04675f), proportionOfHeight (0.4678f /*0.4285f 0.46f 0.4676f*/), knobSize, knobSize);
-    widthKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.635f /*0.595f 0.64f 0.63f */), knobSize, knobSize);
+    //widthKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.635f /*0.595f 0.64f 0.63f */), knobSize, knobSize);
+    speedKnob.setBounds (proportionOfWidth (0.775f), proportionOfHeight (0.4678f), knobSize, knobSize);
+    thresholdKnob.setBounds (proportionOfWidth (0.525f), proportionOfHeight (0.25f), knobSize, knobSize);
 
     //labels
     auto labelOffset = -proportionOfHeight (0.01f);
@@ -56,7 +74,9 @@ void MainContainer::resized()
     dryWetLabel.setBounds (dryWetKnob.getBounds().withY (dryWetKnob.getBottom() + labelOffset).withHeight (labelHeight));
     sizeLabel.setBounds (sizeKnob.getBounds().withY (sizeKnob.getBottom() + labelOffset).withHeight (labelHeight));
     colourLabel.setBounds (colourKnob.getBounds().withY (colourKnob.getBottom() + labelOffset).withHeight (labelHeight));
-    widthLabel.setBounds (widthKnob.getBounds().withY (widthKnob.getBottom() + labelOffset).withHeight (labelHeight));
+    //widthLabel.setBounds (widthKnob.getBounds().withY (widthKnob.getBottom() + labelOffset).withHeight (labelHeight));
+    speedLabel.setBounds (speedKnob.getBounds().withY (speedKnob.getBottom() + labelOffset).withHeight (labelHeight));
+    thresholdLabel.setBounds (thresholdKnob.getBounds().withY (thresholdKnob.getBottom() + labelOffset).withHeight (labelHeight));
 }
 
 void MainContainer::paint (juce::Graphics& g)

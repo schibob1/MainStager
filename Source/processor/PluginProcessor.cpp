@@ -273,7 +273,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
         ParameterIds::width,
         "Width",
         juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f, 1.0f),
-        0.5f,
+        0.75f,
         juce::String(),
         juce::AudioProcessorParameter::genericParameter,
         [] (float value, int) {
