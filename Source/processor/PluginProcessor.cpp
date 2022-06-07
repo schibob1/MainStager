@@ -152,11 +152,10 @@ void MainStagerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, /
 
     reverb.setParameters (params);
 
-    // compressor.setThreshold (*apvts.getRawParameterValue (ParameterIds::threshold)); // nicht-normalisierter Wert
-    compressor.setThreshold (-18.0f); //fixieren
     compressor.setAttack (1.0f); //fixieren
-    compressor.setRelease (200.0f); //flexibel
-    compressor.setRatio (20.0f); //flexibel
+    compressor.setRelease (*apvts.getRawParameterValue (ParameterIds::speed)); //flexibel
+    compressor.setThreshold (*apvts.getRawParameterValue (ParameterIds::threshold)); // nicht-normalisierter Wert
+    compressor.setRatio (10.0f); //fixiert
 
     auto wetLevel = apvts.getParameter (ParameterIds::dryWet)->getValue();
 
@@ -284,6 +283,26 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
                 return juce::String (value * 100.0f, 1);
             else
                 return juce::String (value * 100.0f, 0); },
+        nullptr));
+
+    //speed aka release
+    layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::speed,
+        "Speed",
+        juce::NormalisableRange<float> (0.0f, 1000.0f, 1.0f, 1.0f),
+        100.0f,
+        "ms",
+        juce::AudioProcessorParameter::genericParameter,
+        nullptr,
+        nullptr));
+
+    //threshold
+    layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::threshold,
+        "Ducking/Intensity",
+        juce::NormalisableRange<float> (-100.0f, 0.0f, 1.0f, 0.25f),
+        -24.0f,
+        "dB",
+        juce::AudioProcessorParameter::genericParameter,
+        nullptr,
         nullptr));
 
     return layout;

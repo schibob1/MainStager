@@ -35,14 +35,16 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     sizeLabel.toBehind (&sizeKnob);
     colourLabel.toBehind (&colourKnob);
     widthLabel.toBehind (&widthKnob);
+    speedLabel.toBehind (&speedKnob);
+    thresholdLabel.toBehind (&thresholdKnob);
 }
 
 void MainContainer::resized()
 {
     auto knobSize = proportionOfWidth (0.159f);
 
-    //knobs postition
-    dryWetKnob.setBounds (proportionOfWidth (0.046f), proportionOfHeight ( 0.0825f /* 0.043275f 0.09f 0.08f*/), knobSize, knobSize);
+    //knobs position
+    dryWetKnob.setBounds (proportionOfWidth (0.046f), proportionOfHeight (0.0825f /* 0.043275f 0.09f 0.08f*/), knobSize, knobSize);
     sizeKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.25f /*0.21125f 0.26f 0.2511f*/), knobSize, knobSize);
     colourKnob.setBounds (proportionOfWidth (0.04675f), proportionOfHeight (0.4678f /*0.4285f 0.46f 0.4676f*/), knobSize, knobSize);
     widthKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.635f /*0.595f 0.64f 0.63f */), knobSize, knobSize);
