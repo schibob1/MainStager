@@ -1,6 +1,6 @@
 #include "PluginEditor.h"
-#include <processor/PluginProcessor.h>
 #include "MainContainer.cpp"
+#include <processor/PluginProcessor.h>
 
 #include <BinaryData.h>
 
@@ -19,7 +19,7 @@ MainStagerAudioProcessorEditor::MainStagerAudioProcessorEditor (MainStagerAudioP
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (800, 450);
+    setSize (900, 600);
 }
 
 MainStagerAudioProcessorEditor::~MainStagerAudioProcessorEditor()

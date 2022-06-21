@@ -22,7 +22,7 @@ private:
     juce::Slider dryWetKnob; // bzw. die Funktion, die der Slider hat
     juce::Slider sizeKnob;
     juce::Slider colourKnob;
-    juce::Slider widthKnob;
+    //  juce::Slider widthKnob;
     juce::Slider speedKnob;
     juce::Slider thresholdKnob;
 
@@ -30,13 +30,13 @@ private:
     juce::Label dryWetLabel;
     juce::Label sizeLabel;
     juce::Label colourLabel;
-    juce::Label widthLabel;
+    // juce::Label widthLabel;
     juce::Label speedLabel;
     juce::Label thresholdLabel;
 
     juce::AudioProcessorValueTreeState::SliderAttachment dryWetKnobAttachment;
     juce::AudioProcessorValueTreeState::SliderAttachment sizeKnobAttachment;
-    juce::AudioProcessorValueTreeState::SliderAttachment widthKnobAttachment;
+    // juce::AudioProcessorValueTreeState::SliderAttachment widthKnobAttachment;
     juce::AudioProcessorValueTreeState::SliderAttachment colourKnobAttachment;
     juce::AudioProcessorValueTreeState::SliderAttachment speedKnobAttachment;
     juce::AudioProcessorValueTreeState::SliderAttachment thresholdKnobAttachment;

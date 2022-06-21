@@ -8,14 +8,14 @@
 MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //constructor
     : dryWetKnobAttachment (apvts, ParameterIds::dryWet, dryWetKnob),
       sizeKnobAttachment (apvts, ParameterIds::size, sizeKnob),
-      widthKnobAttachment (apvts, ParameterIds::width, widthKnob),
+      //   widthKnobAttachment (apvts, ParameterIds::width, widthKnob),
       colourKnobAttachment (apvts, ParameterIds::colour, colourKnob),
       thresholdKnobAttachment (apvts, ParameterIds::threshold, thresholdKnob),
       speedKnobAttachment (apvts, ParameterIds::speed, speedKnob)
 
 {
     //dryWet
-    configureKnobAndLabel (dryWetKnob, dryWetLabel, "Dry/Wet");
+    configureKnobAndLabel (dryWetKnob, dryWetLabel, "Volume");
     addAndMakeVisible (dryWetKnob);
     addAndMakeVisible (dryWetLabel);
 
@@ -42,7 +42,7 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     addAndMakeVisible (speedLabel);
 
     //Threshold
-    configureKnobAndLabel (thresholdKnob, thresholdLabel, "Ducking/Intensity");
+    configureKnobAndLabel (thresholdKnob, thresholdLabel, "Threshold / Ducking");
     addAndMakeVisible (thresholdKnob);
     addAndMakeVisible (thresholdLabel);
 
@@ -50,22 +50,22 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     dryWetLabel.toBehind (&dryWetKnob);
     sizeLabel.toBehind (&sizeKnob);
     colourLabel.toBehind (&colourKnob);
-    widthLabel.toBehind (&widthKnob);
+    // widthLabel.toBehind (&widthKnob);
     speedLabel.toBehind (&speedKnob);
     thresholdLabel.toBehind (&thresholdKnob);
 }
 
 void MainContainer::resized()
 {
-    auto knobSize = proportionOfWidth (0.159f);
+    auto knobSize = proportionOfWidth (0.17155f /*0.1716f*/);
 
     //knobs position
-    dryWetKnob.setBounds (proportionOfWidth (0.046f), proportionOfHeight (0.0825f /* 0.043275f 0.09f 0.08f*/), knobSize, knobSize);
-    sizeKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.25f /*0.21125f 0.26f 0.2511f*/), knobSize, knobSize);
-    colourKnob.setBounds (proportionOfWidth (0.04675f), proportionOfHeight (0.4678f /*0.4285f 0.46f 0.4676f*/), knobSize, knobSize);
+    dryWetKnob.setBounds (proportionOfWidth (0.07258f /*0.072575f*/), proportionOfHeight (0.3225f /* 0.32248f*/), knobSize, knobSize);
+    sizeKnob.setBounds (proportionOfWidth (0.07347f /*0.073476f*/), proportionOfHeight (0.6259f /*0.6258f*/), knobSize, knobSize);
+    colourKnob.setBounds (proportionOfWidth (0.21835f /*0.2183f*/), proportionOfHeight (0.47548f /*0.4755f*/), knobSize, knobSize);
     //widthKnob.setBounds (proportionOfWidth (0.1725f), proportionOfHeight (0.635f /*0.595f 0.64f 0.63f */), knobSize, knobSize);
-    speedKnob.setBounds (proportionOfWidth (0.775f), proportionOfHeight (0.4678f), knobSize, knobSize);
-    thresholdKnob.setBounds (proportionOfWidth (0.525f), proportionOfHeight (0.25f), knobSize, knobSize);
+    speedKnob.setBounds (proportionOfWidth (0.765f /*765025f*/), proportionOfHeight (0.4757f /*47556f*/), knobSize, knobSize);
+    thresholdKnob.setBounds (proportionOfWidth (0.5927f /*0.593f*/), proportionOfHeight (0.475825f /*0.475825f*/), knobSize, knobSize);
 
     //labels
     auto labelOffset = -proportionOfHeight (0.01f);
