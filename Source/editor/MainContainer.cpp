@@ -17,17 +17,17 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     //dryWet
     configureKnobAndLabel (dryWetKnob, dryWetLabel, "Volume");
     addAndMakeVisible (dryWetKnob);
-    addAndMakeVisible (dryWetLabel);
+    //addAndMakeVisible (dryWetLabel);
 
     //size
     configureKnobAndLabel (sizeKnob, sizeLabel, "Size");
     addAndMakeVisible (sizeKnob);
-    addAndMakeVisible (sizeLabel);
+    //addAndMakeVisible (sizeLabel);
 
     //colour
     configureKnobAndLabel (colourKnob, colourLabel, "Colour");
     addAndMakeVisible (colourKnob);
-    addAndMakeVisible (colourLabel);
+    //addAndMakeVisible (colourLabel);
 
     //width
     /*
@@ -39,12 +39,12 @@ MainContainer::MainContainer (juce::AudioProcessorValueTreeState& apvts) //const
     //Speed aka Release
     configureKnobAndLabel (speedKnob, speedLabel, "Speed");
     addAndMakeVisible (speedKnob);
-    addAndMakeVisible (speedLabel);
+    //addAndMakeVisible (speedLabel);
 
     //Threshold
     configureKnobAndLabel (thresholdKnob, thresholdLabel, "Threshold / Ducking");
     addAndMakeVisible (thresholdKnob);
-    addAndMakeVisible (thresholdLabel);
+    //addAndMakeVisible (thresholdLabel);
 
     //labels placement
     dryWetLabel.toBehind (&dryWetKnob);
