@@ -228,8 +228,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
     //Volume a.k.a dry/wet
     layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::dryWet,
         "Volume",
-        juce::NormalisableRange<float> (0.0f, 100.0f, 1.0f, 1.0f),
-        100.0f,
+        juce::NormalisableRange<float> (0.0f, 80.0f, 1.0f, 1.0f),
+        80.0f,
         "%",
         juce::AudioProcessorParameter::genericParameter,
         nullptr,
@@ -239,8 +239,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
     layout.add (std::make_unique<juce::AudioParameterFloat> (
         ParameterIds::size,
         "Stage Size",
-        juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f, 1.0f),
-        0.8f,
+        juce::NormalisableRange<float> (0.65f, 0.95f, 0.001f, 1.0f),
+        0.85f,
         juce::String(),
         juce::AudioProcessorParameter::genericParameter,
         [] (float value, int) {
@@ -251,12 +251,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
             else
                 return juce::String (value * 100.0f, 0); },
         nullptr));
-    //colour
+    //colour 1.0f = dark
     layout.add (std::make_unique<juce::AudioParameterFloat> (
         ParameterIds::colour,
         "Colour",
-        juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f, 1.0f),
-        0.5f,
+        juce::NormalisableRange<float> (0.25f, 1.0f, 0.001f, 1.0f),
+        0.75f,
         juce::String(),
         juce::AudioProcessorParameter::genericParameter,
         [] (float value, int) {
@@ -288,8 +288,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
     //speed aka release
     layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::speed,
         "Speed",
-        juce::NormalisableRange<float> (0.0f, 1000.0f, 1.0f, 1.0f),
-        100.0f,
+        juce::NormalisableRange<float> (10.0f, 1000.0f, 1.0f, 1.0f),
+        470.0f,
         "ms",
         juce::AudioProcessorParameter::genericParameter,
         nullptr,
@@ -298,8 +298,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout MainStagerAudioProcessor::cr
     //threshold
     layout.add (std::make_unique<juce::AudioParameterFloat> (ParameterIds::threshold,
         "Threshold / Ducking",
-        juce::NormalisableRange<float> (-100.0f, 0.0f, 1.0f, 0.25f),
-        -24.0f,
+        juce::NormalisableRange<float> (-50.0f, 0.0f, 1.0f, 1.0f),
+        -36.0f,
         "dB",
         juce::AudioProcessorParameter::genericParameter,
         nullptr,

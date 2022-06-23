@@ -1,7 +1,3 @@
-//
-// Created by Martin Rumori on 10.05.22.
-//
-
 #include "MainContainer.h"
 #include <ParameterIds.h>
 
